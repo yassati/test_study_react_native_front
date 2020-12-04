@@ -32,7 +32,11 @@
 
 
 Some possible inspirations for the design of your apps: 
+
 https://repository-images.githubusercontent.com/268501098/50008280-a449-11ea-8f5d-68347e775dbb
+
 https://static.wikia.nocookie.net/essentialsdocs/images/e/e2/PokedexList.png/revision/latest/scale-to-width-down/340?cb=20190511165233
+
 https://cdn.dribbble.com/users/1171520/screenshots/6540871/pokedex2.png
+
 https://cdn.dribbble.com/users/2759306/screenshots/13794991/media/2eac369c9b176c60c64a43868ee6f6f6.png
