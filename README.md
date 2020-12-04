@@ -26,6 +26,8 @@
    - [ ] A user can compare base stats of two pokemons
 
 ## Complicated Bonus
+  Do this *only* if you have a lot of time to spare / the challenge was way to easy, it is not only not required or expected, it is a tough one. 
+  
    - [ ] A user can see the evolution chain of a pokemon
 
 
