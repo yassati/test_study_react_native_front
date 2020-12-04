@@ -22,6 +22,5 @@
 ## Bonus
   Some nice to haves, when there is time to spare.
 
-   - [ ] A user can browse pokemons based on their nature
-   - [ ] A user can see the evolution chain of an individual pokemon
+   - [ ] A user can browse pokemons based on their type
    - [ ] A user can compare base stats of two pokemons
