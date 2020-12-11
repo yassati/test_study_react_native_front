@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, ScrollView, SafeAreaView, StyleSheet } from "react-native";
 import { Card } from "react-native-paper";
 
-export default class Info extends Component {
+export default class Favorite extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -16,9 +16,9 @@ export default class Info extends Component {
             <View>
               <Card style={styles.card}>
                 <View
-                  style={{ alignItems: "center", height: 40, marginTop: 20 }}
+                  style={{ alignItems: "center", height: 550, marginTop: 20 }}
                 >
-                  <Text>STUDY ADVISOR</Text>
+                  <Text>Favorite</Text>
                 </View>
               </Card>
             </View>

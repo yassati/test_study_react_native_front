@@ -7,15 +7,10 @@ import {
   SafeAreaView,
   ActivityIndicator,
   Image,
-  TouchableOpacity,
-  Vibration
+  TouchableOpacity
 } from "react-native";
-import { TextInput, Button, Card } from "react-native-paper";
-// import * as RootNavigation from "../RootNavigation";
-// import positions from "../helpers/positions";
-// import Fuse from "fuse.js";
-
-let fuse;
+import { Card } from "react-native-paper";
+import * as RootNavigation from "../RootNavigation";
 
 export default class Home extends Component {
   constructor(props) {
@@ -50,7 +45,6 @@ export default class Home extends Component {
         </View>
       );
     }
-    console.log(this.state.dataSource);
     return (
       <ScrollView keyboardShouldPersistTaps="handled">
         <SafeAreaView>
@@ -59,33 +53,30 @@ export default class Home extends Component {
               .filter(pokemon => pokemon.name.toLowerCase())
               .map((pokemon, index) => {
                 return (
-                  <Card key={index} style={styles.card}>
-                    <View style={styles.flex}>
-                      <Image
-                        style={[{ width: 150, height: 150 }, styles.avatar]}
-                        resizeMode="contain"
-                        source={{
-                          uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${pokemon.name}.png`
-                        }}
-                      />
-                      <View style={{ flex: 1 }}>
-                        <View style={{ marginLeft: 20 }}>
-                          <Text style={styles.title}>{pokemon.name}</Text>
-                          {/* <TouchableOpacity
-                          onPress={() => {
-                            RootNavigation.navigate("TestModal", {
-                              idChar: item.char_id, name: item.name
-                            }), Vibration.vibrate([0, 500, 100, 200])
+                  <TouchableOpacity
+                    onPress={() => {
+                      RootNavigation.navigate("DetailsModal", {
+                        pokemon: pokemon.name
+                      });
+                    }}
+                  >
+                    <Card key={index} style={styles.card}>
+                      <View style={styles.flex}>
+                        <Image
+                          style={[{ width: 200, height: 200 }, styles.avatar]}
+                          resizeMode="contain"
+                          source={{
+                            uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${pokemon.name}.png`
                           }}
-                        >
-                          <Text style={{ color: "gray" }}>
-                          See more details...
-                          </Text>
-                        </TouchableOpacity> */}
+                        />
+                        <View style={{ flex: 1 }}>
+                          <View style={{ marginLeft: 20 }}>
+                            <Text style={styles.title}>{pokemon.name}</Text>
+                          </View>
                         </View>
                       </View>
-                    </View>
-                  </Card>
+                    </Card>
+                  </TouchableOpacity>
                 );
               })}
           </View>
@@ -120,6 +111,7 @@ const styles = StyleSheet.create({
   },
   avatar: { width: 80, height: 120, borderRadius: 10 },
   title: {
+    textTransform: "uppercase",
     color: "black",
     fontWeight: "bold",
     fontSize: 20

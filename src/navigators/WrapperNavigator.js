@@ -4,9 +4,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import FooterNavigator from "./FooterNavigator";
 import HomeNavigator from "./stackNavigators/HomeNavigator";
+import FavoriteNavigator from "./stackNavigators/FavoriteNavigator";
 import InfoNavigator from "./stackNavigators/InfoNavigator";
 // Import modals
-import PlayerModal from "../screens/PlayerModal";
+import DetailsModal from "../screens/DetailsModal";
 
 import { navigationRef } from "../RootNavigation";
 
@@ -19,6 +20,7 @@ class NavigationDrawerContainerApp extends React.Component {
       <Drawer.Navigator initialRouteName="Main" drawerPosition="right">
         <Drawer.Screen name="Main" component={FooterNavigator} />
         <Drawer.Screen name="Home" component={HomeNavigator} />
+        <Drawer.Screen name="Favorite" component={FavoriteNavigator} />
         <Drawer.Screen name="Info" component={InfoNavigator} />
       </Drawer.Navigator>
     );
@@ -31,7 +33,7 @@ export default class WrapperNavigator extends React.Component {
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator mode="modal" headerMode="none">
           <Stack.Screen name="Main" component={NavigationDrawerContainerApp} />
-          <Stack.Screen name="TestModal" component={PlayerModal} />
+          <Stack.Screen name="DetailsModal" component={DetailsModal} />
         </Stack.Navigator>
       </NavigationContainer>
     );

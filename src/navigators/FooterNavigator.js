@@ -1,6 +1,7 @@
 import React from "react";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeNavigator from "./stackNavigators/HomeNavigator";
+import FavoriteNavigator from "./stackNavigators/FavoriteNavigator";
 import InfoNavigator from "./stackNavigators/InfoNavigator";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -21,6 +22,14 @@ export default class FooterNavigator extends React.Component {
           options={{
             tabBarLabel: "Home",
             tabBarIcon: () => <Icon name="home" color={"#58D757"} size={20} />
+          }}
+        />
+        <Tab.Screen
+          name="Favorite"
+          component={FavoriteNavigator}
+          options={{
+            tabBarLabel: "Favorite",
+            tabBarIcon: () => <Icon name="heart" color={"#58D757"} size={20} />
           }}
         />
         <Tab.Screen
