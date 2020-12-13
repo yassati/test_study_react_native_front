@@ -9,7 +9,7 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import { Card } from "react-native-paper";
+import { Card, Button } from "react-native-paper";
 import * as RootNavigation from "../RootNavigation";
 
 export default class Home extends Component {
@@ -69,7 +69,12 @@ export default class Home extends Component {
                             uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${pokemon.name}.png`
                           }}
                         />
-                        <View style={{ flex: 1 }}>
+                        <View
+                          style={{
+                            flex: 1,
+                            alignItems: "center"
+                          }}
+                        >
                           <View style={{ marginLeft: 20 }}>
                             <Text style={styles.title}>{pokemon.name}</Text>
                           </View>

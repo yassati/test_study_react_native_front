@@ -11,6 +11,7 @@ import {
 import * as RootNavigation from "../RootNavigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Button } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class TestModal extends Component {
   constructor(props) {
@@ -42,6 +43,14 @@ export default class TestModal extends Component {
         console.error(error);
       });
   }
+
+  save = async value => {
+    try {
+      await AsyncStorage.setItem("@pokemon", value);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   render() {
     if (this.state.isLoading) {
@@ -93,6 +102,12 @@ export default class TestModal extends Component {
               <Text style={styles.text}>
                 Type: {details.types[0].type.name}
               </Text>
+              <Text style={styles.text}>
+                Number of battle: {details.game_indices.length}
+              </Text>
+              <Button onPress={() => this.save(details.name)}>
+                <Icon name="heart" size={30} color="red" />
+              </Button>
             </View>
           </View>
         </SafeAreaView>
