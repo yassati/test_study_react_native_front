@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import * as RootNavigation from "../RootNavigation";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { Button } from "react-native-paper";
+import { Button, ProgressBar } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class TestModal extends Component {
@@ -43,13 +43,19 @@ export default class TestModal extends Component {
         console.error(error);
       });
   }
-
-  save = async value => {
-    try {
-      await AsyncStorage.setItem("@pokemon", value);
-    } catch (e) {
-      console.log(e);
+  getFavorites = async () => {
+    const res = await AsyncStorage.getItem("favorites");
+    if (res) {
+      const favorites = JSON.parse(res);
+      return favorites;
     }
+
+    return [];
+  };
+  createFavorite = async favorite => {
+    const favorites = await this.getFavorites();
+    favorites.push(favorite);
+    await AsyncStorage.setItem("favorites", JSON.stringify(favorites));
   };
 
   render() {
@@ -60,7 +66,6 @@ export default class TestModal extends Component {
         </View>
       );
     }
-    console.log(this.state.dataSource);
 
     const details = this.state.dataSource;
     return (
@@ -102,10 +107,45 @@ export default class TestModal extends Component {
               <Text style={styles.text}>
                 Type: {details.types[0].type.name}
               </Text>
-              <Text style={styles.text}>
-                Number of battle: {details.game_indices.length}
+              <Text
+                style={{
+                  fontSize: 22
+                }}
+              >
+                Stats
               </Text>
-              <Button onPress={() => this.save(details.name)}>
+              <View>
+                {details.stats.map((item, index) => {
+                  return (
+                    <View key={index}>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between"
+                        }}
+                      >
+                        <Text style={{ marginTop: 15, fontSize: 22 }}>
+                          {item.stat.name}
+                        </Text>
+                        <Text
+                          style={{
+                            marginTop: 15,
+                            fontSize: 22
+                          }}
+                        >
+                          {item.base_stat}%
+                        </Text>
+                      </View>
+                      <ProgressBar
+                        styleAttr="Horizontal"
+                        indeterminate={false}
+                        progress={parseInt(item.base_stat) / 100}
+                      />
+                    </View>
+                  );
+                })}
+              </View>
+              <Button onPress={() => this.createFavorite(details.name)}>
                 <Icon name="heart" size={30} color="red" />
               </Button>
             </View>
