@@ -11,6 +11,7 @@ import {
 import { Card, Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as RootNavigation from "../RootNavigation";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default class Favorite extends Component {
   constructor(props) {
@@ -91,7 +92,7 @@ export default class Favorite extends Component {
                         </View>
                       </View>
                       <Button onPress={() => this.deleteFavorite(pokemon)}>
-                        remove
+                        <Icon name="trash-alt" size={25} color={"black"} />
                       </Button>
                     </View>
                   </Card>

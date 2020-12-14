@@ -18,6 +18,7 @@ export default class TestModal extends Component {
     super(props);
     this.state = {
       isLoading: true,
+      isFavorite: false,
       dataSource: []
     };
   }
@@ -56,6 +57,7 @@ export default class TestModal extends Component {
     const favorites = await this.getFavorites();
     favorites.push(favorite);
     await AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+    this.setState({ isFavorite: true });
   };
 
   render() {
@@ -91,6 +93,18 @@ export default class TestModal extends Component {
               >
                 {details.name}
               </Text>
+              {this.state.isFavorite ? (
+                <Button style={{ marginLeft: 100 }}>
+                  <Icon name="check-circle" size={30} color="white" />
+                </Button>
+              ) : (
+                <Button
+                  style={{ marginLeft: 100 }}
+                  onPress={() => this.createFavorite(details.name)}
+                >
+                  <Icon name="heart" size={30} color="white" />
+                </Button>
+              )}
             </View>
             <View style={{ flex: 1, alignItems: "center" }}>
               <Image
@@ -99,20 +113,31 @@ export default class TestModal extends Component {
                   uri: `https://img.pokemondb.net/sprites/omega-ruby-alpha-sapphire/dex/normal/${details.name}.png`
                 }}
               />
-              <Text style={styles.text}>Height: {details.height / 10} M</Text>
-              <Text style={styles.text}>Weight: {details.weight / 10} KG</Text>
-              <Text style={styles.text}>
-                Ability: {details.abilities[0].ability.name}
-              </Text>
-              <Text style={styles.text}>
-                Type: {details.types[0].type.name}
-              </Text>
+              <View
+                style={{
+                  flexDirection: "row"
+                }}
+              >
+                <Text style={styles.text}>Height: {details.height / 10} M</Text>
+                <Text style={[styles.text, { marginLeft: 20 }]}>
+                  Weight: {details.weight / 10} KG
+                </Text>
+              </View>
+              <View style={{ flexDirection: "row" }}>
+                <Text style={styles.text}>
+                  Ability: {details.abilities[0].ability.name}
+                </Text>
+                <Text style={[styles.text, { marginLeft: 20 }]}>
+                  Type: {details.types[0].type.name}
+                </Text>
+              </View>
+
               <Text
                 style={{
                   fontSize: 22
                 }}
               >
-                Stats
+                Stats:
               </Text>
               <View>
                 {details.stats.map((item, index) => {
@@ -145,9 +170,6 @@ export default class TestModal extends Component {
                   );
                 })}
               </View>
-              <Button onPress={() => this.createFavorite(details.name)}>
-                <Icon name="heart" size={30} color="red" />
-              </Button>
             </View>
           </View>
         </SafeAreaView>
