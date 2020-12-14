@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
-import { Card } from "react-native-paper";
+import { Card, Button } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as RootNavigation from "../RootNavigation";
 
@@ -31,6 +31,28 @@ export default class Favorite extends Component {
     return [];
   };
 
+  deleteFavorite = async pokemon => {
+    let pokemons = [];
+    let deleteFavoriteStorage = this.state.pokemon.findIndex(
+      value => value.name === pokemon
+    );
+    let favoriteDeleted = this.state.pokemon.splice(deleteFavoriteStorage, 1);
+    pokemons = this.state.pokemon;
+    await AsyncStorage.setItem("favorites", JSON.stringify(pokemons));
+    let deleteFavorite = this.state.pokemon.findIndex(
+      value => value.name === pokemon
+    );
+    this.state.pokemon.splice(deleteFavorite, 1);
+    this.setState({
+      pokemon: this.state.pokemon.length > 0 ? this.state.pokemon : []
+    });
+  };
+
+  deleteAllFavorite = async () => {
+    const favorites = [];
+    await AsyncStorage.setItem("favorites", JSON.stringify(favorites));
+  };
+
   render() {
     this.getFavorites();
 
@@ -38,6 +60,7 @@ export default class Favorite extends Component {
       <ScrollView keyboardShouldPersistTaps="handled">
         <SafeAreaView>
           <View>
+            <Button onPress={() => this.deleteAllFavorite()}>remove all</Button>
             {this.state.pokemon.map((pokemon, index) => {
               return (
                 <TouchableOpacity
@@ -67,6 +90,9 @@ export default class Favorite extends Component {
                           <Text style={styles.title}>{pokemon}</Text>
                         </View>
                       </View>
+                      <Button onPress={() => this.deleteFavorite(pokemon)}>
+                        remove
+                      </Button>
                     </View>
                   </Card>
                 </TouchableOpacity>
